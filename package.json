@@ -1,0 +1,17 @@
+{
+  "name": "explain-root",
+  "version": "1.0.0",
+  "description": "My Project",
+  "scripts": {
+    "database": "docker-compose up",
+    "database:reset": "sh docker-reset.sh && docker-compose up --build --remove-orphans --force-recreate"
+  },
+  "author": "Me",
+  "license": "Commercial",
+  "dependencies": {
+    "prop-types": "^15.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.0"
+  }
+}

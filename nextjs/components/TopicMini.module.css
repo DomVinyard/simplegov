@@ -1,0 +1,29 @@
+.container {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+}
+
+.h2 {
+  display: flex;
+  align-items: center;
+}
+
+.p {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  padding-right: 30px;
+}
+
+.image {
+  height: 100px;
+  width: 100px;
+  min-width: 100px;
+  min-height: 100px;
+  border-radius: 100%;
+  background: #ddd;
+  background-position: center;
+  background-size: cover;
+}

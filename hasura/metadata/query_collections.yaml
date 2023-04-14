@@ -1,0 +1,122 @@
+- name: allowed-queries
+  definition:
+    queries:
+      - name: Topics
+        query: |
+          query TOPICS {
+            topic {
+              slug
+              name
+            }
+          }
+      - name: Topic
+        query: |
+          query GET_TOPIC ($slug: String, $audience: numeric) {
+            topic(where: {slug:{_eq:$slug}}) {
+              slug
+              name
+              image
+              created_at
+              descriptions(where: {audience:{_eq:$audience}}) {
+                short
+                long
+              }
+              parent {
+                parent {
+                  slug
+                  name
+                  grandparent: parent {
+                    grandparent: parent {
+                      slug
+                      name
+                    }
+                  }
+                }
+              }
+              relationships(where: {audience:{_eq:$audience}}) {
+                to {
+                  slug
+                  name
+                  image
+                }
+                description
+              }
+            }
+          }
+      - name: Insert Topic
+        query: |
+          mutation ADD_TOPIC ($topics: [topic_insert_input!]!, $descriptions: [description_insert_input!]!, $relationships: [relationship_insert_input!]!, $hierarchies: [hierarchy_insert_input!]!) {
+            insert_topic(objects: $topics, on_conflict: {update_columns:[],constraint:topic_pkey}) {
+              affected_rows
+            }
+            insert_description(objects: $descriptions, on_conflict: {update_columns:[],constraint:description_pkey}) {
+              affected_rows
+            }
+            insert_relationship(objects: $relationships, on_conflict: {update_columns:[],constraint:relationship_pkey}) {
+              affected_rows
+            }
+            insert_hierarchy(objects: $hierarchies, on_conflict: {update_columns:[],constraint:hierarchy_pkey}) {
+              affected_rows
+            }
+          }
+      - name: groups
+        query: |
+          query GET_GROUPS {
+            group {
+              name
+              description
+              items {
+                topic {
+                  name
+                  slug
+                  image
+                  descriptions {
+                    extra_short
+                  }
+                }
+              }
+            }
+          }
+      - name: All Topics
+        query: |
+          query ALL_TOPICS {
+            topics: topic {
+              topic: slug
+            }
+          }
+      - name: Topic_All_Audiences
+        query: |
+          query GET_TOPIC_ALL_AUDIENCES ($slug: String) {
+            topic(where: {slug:{_eq:$slug}}) {
+              slug
+              name
+              image
+              created_at
+              descriptions {
+                short
+                long
+                audience
+              }
+              parent {
+                parent {
+                  slug
+                  name
+                  grandparent: parent {
+                    grandparent: parent {
+                      slug
+                      name
+                    }
+                  }
+                }
+              }
+              relationships {
+                audience
+                to {
+                  slug
+                  name
+                  image
+                }
+                description
+              }
+            }
+          }

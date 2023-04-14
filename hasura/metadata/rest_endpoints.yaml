@@ -1,0 +1,54 @@
+- comment: A list of groups for the homepage
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: groups
+  methods:
+    - GET
+  name: groups
+  url: groups
+- comment: Adds a new topic to the database
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Insert Topic
+  methods:
+    - POST
+  name: Insert Topic
+  url: topic
+- comment: A single topic, return all audiences
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Topic_All_Audiences
+  methods:
+    - GET
+  name: Topic_All_Audiences
+  url: topic/:slug
+- comment: A single topic with a single audience level (5/10/adult)
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Topic
+  methods:
+    - GET
+  name: Topic
+  url: topic/:slug/:audience
+- comment: A list of all topics in the database
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: Topics
+  methods:
+    - GET
+  name: Topics
+  url: topics
+- comment: ""
+  definition:
+    query:
+      collection_name: allowed-queries
+      query_name: All Topics
+  methods:
+    - GET
+  name: All Topics
+  url: topics/all
