@@ -54,14 +54,16 @@ export default function Topic(props: any) {
   const { id, shortTitle, description } = props;
   return (
     <>
-      <AdminBar {...{ id, shortTitle }} />
       <Link href={"/"}>Home</Link>
       {/* <h1>{shortTitle}</h1> */}
       <p
         className={styles.p}
-        dangerouslySetInnerHTML={{ __html: `${description.simplifiedLong}` }}
+        dangerouslySetInnerHTML={{
+          __html: `${description?.simplifiedLong || "awaiting description"}`,
+        }}
       />
-      <p style={{ opacity: 0.5 }}>{JSON.stringify(props)}</p>
+      <AdminBar {...{ id, shortTitle }} />
+      {/* <p style={{ opacity: 0.5 }}>{JSON.stringify(props)}</p> */}
     </>
   );
 }

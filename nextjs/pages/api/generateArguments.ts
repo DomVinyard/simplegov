@@ -11,8 +11,21 @@ export default async function handler(
 ) {
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { id: billID } = body.event.data.new;
-
+    const { billID } = body.event.data.new;
+    console.log({ billID });
+    // delete existing
+    await client.mutate({
+      mutation: gql`
+        mutation ($billID: String!) {
+          delete_arguments(where: { billID: { _eq: $billID } }) {
+            affected_rows
+          }
+        }
+      `,
+      variables: {
+        billID,
+      },
+    });
     const {
       data: {
         bill: { rawText },
@@ -30,61 +43,49 @@ export default async function handler(
     });
 
     const CHAR_LIMIT = 12000;
-    const simplifiedLong = await runGPTQuery({
+    const billArguments = await runGPTQuery({
       system:
-        `You are a helpful assistant who wants to help people to understand a piece of uk legislation.` +
-        `You never use political or technical words when simple ones are available.`,
-      query: `I am a 10 year old. Please describe the following bill using language that i would understand: \n\n${rawText.slice(
-        0,
-        CHAR_LIMIT
-      )}`,
+        `You are a helpful researcher who wants to help people to understand a piece of uk legislation.` +
+        `Your job is to take a bill and provide arguments for and against its implementation.`,
+      query: `Take a bill and find three arguments for it and three arguments against it, structure your response as json in the following format:
+
+      {
+        for: ['argument 1', 'argument 2', 'argument 3']
+        against: ['argument 1', 'argument 2', 'argument 3']
+      }
+
+      This is the bill:
+      
+      ${rawText.slice(0, CHAR_LIMIT)}`,
     });
 
-    const simplifiedLongHighlighted = await runGPTQuery({
-      system: `Your job is to annotate a piece of text. You will return the same text you received with the annotations included.`,
-      query: `Take the following piece of text, identify up to three key concepts and return the same text with those concepts wrapped in <strong> tags: \n\n${simplifiedLong})`,
-    });
-    if (!simplifiedLong) throw new Error("No summary found");
-    const simplifiedShort = await runGPTQuery({
-      system:
-        `You are a helpful assistant who wants to help people to understand a piece of uk legislation.` +
-        `You never use political or technical words when simple ones are available.` +
-        `Make your reply less than 10 words`,
-      query: `Please describe the following bill in 10 words or less. Use tabloid style language but do not use exclamation mark: \n\n${rawText.slice(
-        0,
-        CHAR_LIMIT
-      )}`,
-    });
+    const argsAsJSON = JSON.parse(`${billArguments}`);
+    const argsProcessed = [
+      ...argsAsJSON.for.map((arg: string) => ({
+        billID,
+        position: "for",
+        argument: arg,
+      })),
+      ...argsAsJSON.against.map((arg: string) => ({
+        billID,
+        position: "against",
+        argument: arg,
+      })),
+    ];
     await client.mutate({
       mutation: gql`
-        mutation INSERT_DESCRIPTION(
-          $billID: String!
-          $simplifiedLong: String!
-          $simplifiedShort: String!
-        ) {
-          insert_descriptions(
-            objects: {
-              billID: $billID
-              simplifiedShort: $simplifiedShort
-              simplifiedLong: $simplifiedLong
-            }
-            on_conflict: {
-              constraint: descriptions_billID_key
-              update_columns: [simplifiedLong, simplifiedShort]
-            }
-          ) {
-            returning {
-              id
-            }
+        mutation ($arguments: [arguments_insert_input!]!) {
+          insert_arguments(objects: $arguments) {
+            affected_rows
           }
         }
       `,
       variables: {
-        billID,
-        simplifiedLong: simplifiedLongHighlighted,
-        simplifiedShort,
+        arguments: argsProcessed,
       },
     });
+
+    console.log(billArguments);
     res.send(200);
   } catch (err) {
     console.error(err);

@@ -32,9 +32,9 @@ export default async function handler(
     const CHAR_LIMIT = 12000;
     const simplifiedLong = await runGPTQuery({
       system:
-        `You are a helpful assistant who wants to help people to understand a piece of uk legislation.` +
+        `You are a helpful researcher who wants to help people to understand a piece of uk legislation.` +
         `You never use political or technical words when simple ones are available.`,
-      query: `I am a 10 year old. Please describe the following bill using language that i would understand: \n\n${rawText.slice(
+      query: `I am a 10 year old. Using no more than 150 words, please describe the following bill using language that i would understand: \n\n${rawText.slice(
         0,
         CHAR_LIMIT
       )}`,
@@ -47,7 +47,7 @@ export default async function handler(
     if (!simplifiedLong) throw new Error("No summary found");
     const simplifiedShort = await runGPTQuery({
       system:
-        `You are a helpful assistant who wants to help people to understand a piece of uk legislation.` +
+        `You are a helpful researcher who wants to help people to understand a piece of uk legislation.` +
         `You never use political or technical words when simple ones are available.` +
         `Make your reply less than 10 words`,
       query: `Please describe the following bill in 10 words or less. Use tabloid style language but do not use exclamation mark: \n\n${rawText.slice(

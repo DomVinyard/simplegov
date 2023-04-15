@@ -2,7 +2,6 @@ import { Configuration, OpenAIApi } from "openai";
 
 const runGPTQuery = async ({ query = "", system = "" }: any) => {
   try {
-    console.log("gpt", { env: process.env.OPENAI_KEY });
     const configuration = new Configuration({ apiKey: process.env.OPENAI_KEY });
     const openai = new OpenAIApi(configuration);
     const { data } = await openai.createChatCompletion({
@@ -14,9 +13,6 @@ const runGPTQuery = async ({ query = "", system = "" }: any) => {
         { role: "user", content: query },
       ],
     });
-    // const response = await openai.listModels();
-    // console.log({ response: response.data.data });
-    console.log({ data });
     return data?.choices?.[0]?.message?.content;
   } catch (e) {
     console.log(e);
