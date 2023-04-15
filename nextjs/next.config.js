@@ -3,20 +3,7 @@ const nextConfig = {
   experimental: {
     appDir: false,
   },
-  redirects: async () => {
-    return [
-      {
-        source: "/",
-        destination: "/groups/20",
-        permanent: true,
-      },
-      {
-        source: "/topic/:topic",
-        destination: "/topic/:topic/20",
-        permanent: true,
-      },
-    ];
-  },
+  redirects: async () => [],
 };
 
 module.exports = nextConfig;

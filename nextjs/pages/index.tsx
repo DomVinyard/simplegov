@@ -1,10 +1,29 @@
-import Image from "next/image";
-// import { Inter } from "next/font/google";
-import Header from "../components/Header";
-import Layout from "./_app";
+import Link from "next/link";
 
-// const inter = Inter({ subsets: ["latin"] });
+export async function getStaticProps() {
+  const res = await fetch(
+    "https://bills-api.parliament.uk/api/v1/Bills?CurrentHouse=All&OriginatingHouse=Commons&IsDefeated=false&IsWithdrawn=false&SortOrder=DateUpdatedDescending&Take=20"
+  );
+  const json = await res.json();
+  console.log(json);
 
-export default function Home() {
-  return <main>page.tsx</main>;
+  return {
+    props: {
+      bills: json,
+    },
+  };
+}
+
+export default function Home(props: any) {
+  // return <>{JSON.stringify(props.bills)}</>;
+  return (
+    <div>
+      {props?.bills?.items?.map((bill: any) => (
+        <Link key={bill.billId} href={`/bills/${bill.billId}`}>
+          <h3>{bill.shortTitle}</h3>
+          {/* <p>{JSON.stringify(bill)}</p> */}
+        </Link>
+      ))}
+    </div>
+  );
 }

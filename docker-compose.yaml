@@ -1,20 +1,20 @@
 version: "3.6"
 services:
-  explainai-postgres:
-    container_name: explainai-postgres
+  simplegov-postgres:
+    container_name: simplegov-postgres
     image: postgres:13.0-alpine
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: postgrespassword
-  explainai-hasura:
-    container_name: explainai-hasura
+  simplegov-hasura:
+    container_name: simplegov-hasura
     image: hasura/graphql-engine:v2.19.0-ce.cli-migrations-v3
     ports:
       - "8080:8080"
     depends_on:
-      - "explainai-postgres"
+      - "simplegov-postgres"
     restart: always
     volumes:
       - ./hasura/migrations:/hasura-migrations
@@ -24,15 +24,15 @@ services:
       HASURA_GRAPHQL_DEV_MODE: "true"
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: admin_secret
-      DATABASE_URL: postgres://postgres:postgrespassword@explainai-postgres:5432/postgres
-      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@explainai-postgres:5432/postgres
+      DATABASE_URL: postgres://postgres:postgrespassword@simplegov-postgres:5432/postgres
+      HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@simplegov-postgres:5432/postgres
       API_ENDPOINT: http://host.docker.internal:3000
-  # explainai-nextjs:
+  # simplegov-nextjs:
   #   build:
   #     context: ./nextjs
   #     target: runner
   #   depends_on:
-  #     - "explainai-hasura"
+  #     - "simplegov-hasura"
   #   volumes:
   #     - ./nextjs:/app
   #   command: npm run dev
