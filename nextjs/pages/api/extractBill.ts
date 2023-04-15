@@ -9,7 +9,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { id, shortTitle } = req.body.event.data.new;
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const { id, shortTitle } = body.event.data.new;
     const publicationEndpoint = `https://bills-api.parliament.uk/api/v1/Bills/${id}/Publications`;
     const governmentRes = await fetch(publicationEndpoint, {
       headers: { "Content-Type": "application/pdf" },

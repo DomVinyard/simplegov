@@ -1,6 +1,11 @@
 import client from "@/lib/apollo-client";
 import { gql } from "@apollo/client";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const AdminBar = dynamic(() => import("./../../components/AdminBar"), {
+  loading: () => <p></p>,
+});
 
 export async function getStaticPaths() {
   try {
@@ -15,7 +20,7 @@ export async function getStaticPaths() {
         }
       `,
     });
-    const paths = bills.map(({ id }: any) => ({ params: { id } }));
+    const paths = bills.map((params: any) => ({ params }));
     return { paths, fallback: "blocking" };
   } catch (error) {
     console.error(error);
@@ -40,16 +45,16 @@ export async function getStaticProps({ params }: any) {
     `,
     variables: { id: params.id },
   });
-  console.log(bill);
   return { props: bill };
 }
 
-export default function Topic(props: any) {
+export default function Topic({ id, shortTitle, description }: any) {
   return (
     <>
+      <AdminBar {...{ id, shortTitle }} />
       <Link href={"/"}>Home</Link>
-      <h1>{props.shortTitle}</h1>
-      <p style={{ fontSize: 30 }}>{props.description.simplifiedLong}</p>
+      <h1>{shortTitle}</h1>
+      <p style={{ fontSize: 30 }}>{description.simplifiedLong}</p>
     </>
   );
 }

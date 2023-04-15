@@ -10,7 +10,24 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { id: billID, rawText } = req.body.event.data.new;
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const { id: billID } = body.event.data.new;
+
+    const {
+      data: {
+        bill: { rawText },
+      },
+    } = await client.query({
+      query: gql`
+        query GET_BILL($billID: String!) {
+          bill: bills_by_pk(id: $billID) {
+            id
+            rawText
+          }
+        }
+      `,
+      variables: { billID },
+    });
 
     const CHAR_LIMIT = 12000;
     const simplifiedLong = await runGPTQuery({
