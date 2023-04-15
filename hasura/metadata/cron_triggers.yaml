@@ -1,1 +1,7 @@
-[]
+- name: cron_fetch_bills
+  webhook: '{{API_ENDPOINT}}/api/fetchBills'
+  schedule: '* * * * *'
+  include_in_metadata: true
+  headers:
+    - name: API_SECRET
+      value_from_env: API_SECRET

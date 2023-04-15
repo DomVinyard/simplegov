@@ -22,24 +22,28 @@ services:
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
       HASURA_GRAPHQL_DEV_MODE: "true"
+      HASURA_GRAPHQL_LOG_LEVEL: error
       HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, query-log
       HASURA_GRAPHQL_ADMIN_SECRET: admin_secret
       DATABASE_URL: postgres://postgres:postgrespassword@simplegov-postgres:5432/postgres
       HASURA_GRAPHQL_DATABASE_URL: postgres://postgres:postgrespassword@simplegov-postgres:5432/postgres
       API_ENDPOINT: http://host.docker.internal:3000
-  # simplegov-nextjs:
-  #   build:
-  #     context: ./nextjs
-  #     target: runner
-  #   depends_on:
-  #     - "simplegov-hasura"
-  #   volumes:
-  #     - ./nextjs:/app
-  #   command: npm run dev
-  #   ports:
-  #     - "3000:3000"
-  #   environment:
-  #     NODE_ENV: development
-  #     REVALIDATE_SECRET: secret
+      API_SECRET: secret
+  simplegov-nextjs:
+    build:
+      context: ./nextjs
+      target: runner
+    depends_on:
+      - "simplegov-hasura"
+    volumes:
+      - ./nextjs:/app
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      API_SECRET: secret
+      HASURA_ADMIN_SECRET: admin_secret
+      HASURA_ENDPOINT: http://host.docker.internal:8080
+
 volumes:
   db_data:

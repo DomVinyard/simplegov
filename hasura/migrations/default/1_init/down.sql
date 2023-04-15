@@ -10,7 +10,7 @@ alter table "public"."arguments" alter column "parentID" set not null;
 
 alter table "public"."arguments" rename column "parentID" to "parent";
 
-alter table "public"."descriptions" drop constraint "descriptions_billD_key";
+alter table "public"."descriptions" drop constraint "descriptions_billID_key";
 
 DROP TABLE "public"."arguments";
 

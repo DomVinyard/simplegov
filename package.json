@@ -1,10 +1,11 @@
 {
-  "name": "explain-root",
+  "name": "simplegov",
   "version": "1.0.0",
-  "description": "My Project",
+  "description": "SimpleGov",
   "scripts": {
-    "database": "docker-compose up",
-    "database:reset": "sh docker-reset.sh && docker-compose up --build --remove-orphans --force-recreate"
+    "dev": "docker-compose up",
+    "dev:reset": "sh docker-reset.sh && docker-compose up --build --remove-orphans --force-recreate",
+    "database": "docker-compose up simplegov-postgres simplegov-hasura"
   },
   "author": "Me",
   "license": "Commercial",

@@ -1,0 +1,16 @@
+{
+  "name": "simplegov-hasura",
+  "version": "1.0.0",
+  "description": "SimpleGov Hsura",
+  "scripts": {
+    "dev": "hasura console --admin-secret=admin_secret"
+  },
+  "author": "Me",
+  "license": "Commercial",
+  "dependencies": {
+    "prop-types": "^15.8.1"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.0"
+  }
+}

@@ -19,7 +19,7 @@ export default function Home(props: any) {
   return (
     <div>
       {props?.bills?.items?.map((bill: any) => (
-        <Link key={bill.billId} href={`/bills/${bill.billId}`}>
+        <Link key={bill.billId} href={`/bill/${bill.billId}`}>
           <h3>{bill.shortTitle}</h3>
           {/* <p>{JSON.stringify(bill)}</p> */}
         </Link>
