@@ -14,6 +14,8 @@ const runGPTQuery = async ({ query = "", system = "" }: any) => {
         { role: "user", content: query },
       ],
     });
+    // const response = await openai.listModels();
+    // console.log({ response: response.data.data });
     console.log({ data });
     return data?.choices?.[0]?.message?.content;
   } catch (e) {

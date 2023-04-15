@@ -14,7 +14,9 @@ export default async function handler(
 
     const CHAR_LIMIT = 12000;
     const simplifiedLong = await runGPTQuery({
-      system: `You are a helpful assistant who wants to help people to understand a piece of uk legislation. You never use political or technical words when simple ones are available.`,
+      system:
+        `You are a helpful assistant who wants to help people to understand a piece of uk legislation.` +
+        `You never use political or technical words when simple ones are available.`,
       query: `I am a ten year old. Please describe the following bill in words that I can understand: \n\n${rawText.slice(
         0,
         CHAR_LIMIT
@@ -29,7 +31,10 @@ export default async function handler(
         ) {
           insert_descriptions(
             objects: { billID: $billID, simplifiedLong: $simplifiedLong }
-            on_conflict: { constraint: descriptions_pkey, update_columns: [] }
+            on_conflict: {
+              constraint: descriptions_billID_key
+              update_columns: [simplifiedLong]
+            }
           ) {
             returning {
               id
