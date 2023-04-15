@@ -1,0 +1,23 @@
+table:
+  name: bills
+  schema: public
+object_relationships:
+  - name: description
+    using:
+      manual_configuration:
+        column_mapping:
+          id: billD
+        insertion_order: null
+        remote_table:
+          name: descriptions
+          schema: public
+array_relationships:
+  - name: arguments
+    using:
+      manual_configuration:
+        column_mapping:
+          id: billID
+        insertion_order: null
+        remote_table:
+          name: arguments
+          schema: public

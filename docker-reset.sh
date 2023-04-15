@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "💣 Resetting DB..."
-containers=$(docker ps -qa -f="name=explainai")
+containers=$(docker ps -qa -f="name=simplegov")
 if [ ! -z "$containers" ]
 then
     echo "Stopping containers..."
@@ -10,7 +10,7 @@ then
 else
     echo "No containers found"
 fi
-repos=("explainai-postgres" "explainai-hasura" "hasura/graphql-engine" "explainai-nextjs")
+repos=("simplegov-postgres" "simplegov-hasura" "hasura/graphql-engine" "simplegov-nextjs" "simplegov-worker")
 for i in "${repos[@]}"
 do
     images=$(docker images -qa $i)

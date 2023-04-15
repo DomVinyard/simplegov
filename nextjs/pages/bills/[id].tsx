@@ -28,7 +28,7 @@ const runGPTQuery = async ({ query, system = "" }: any) => {
     const configuration = new Configuration({ apiKey: process.env.OPENAI_KEY });
     const openai = new OpenAIApi(configuration);
     const { data } = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       temperature: 0.7,
       max_tokens: 400,
       messages: [

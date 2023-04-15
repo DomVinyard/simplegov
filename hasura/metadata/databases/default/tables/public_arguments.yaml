@@ -1,0 +1,23 @@
+table:
+  name: arguments
+  schema: public
+object_relationships:
+  - name: parent
+    using:
+      manual_configuration:
+        column_mapping:
+          parentID: id
+        insertion_order: null
+        remote_table:
+          name: arguments
+          schema: public
+array_relationships:
+  - name: children
+    using:
+      manual_configuration:
+        column_mapping:
+          id: parentID
+        insertion_order: null
+        remote_table:
+          name: arguments
+          schema: public
