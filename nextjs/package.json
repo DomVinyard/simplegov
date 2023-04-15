@@ -44,7 +44,8 @@
     "three": "^0.150.1",
     "tls": "^0.0.1",
     "typescript": "4.9.5",
-    "use-local-storage-state": "^18.2.1"
+    "use-local-storage-state": "^18.2.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.62",

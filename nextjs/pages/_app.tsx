@@ -1,3 +1,4 @@
+import Header from "@/components/Header";
 import "./styles.css";
 
 export const metadata = {
@@ -12,6 +13,7 @@ export function Inner({ children }: any) {
 export default function App({ Component, pageProps }: any) {
   return (
     <>
+      <Header {...pageProps} />
       <Inner>
         <Component {...pageProps} />
       </Inner>
