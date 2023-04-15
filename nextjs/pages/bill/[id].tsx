@@ -50,7 +50,6 @@ export default function Topic(props: any) {
       <Link href={"/"}>Home</Link>
       <h1>{props.shortTitle}</h1>
       <p style={{ fontSize: 30 }}>{props.description.simplifiedLong}</p>
-      {/* <p style={{ opacity: 0.4 }}>{JSON.stringify(props)}</p> */}
     </>
   );
 }
