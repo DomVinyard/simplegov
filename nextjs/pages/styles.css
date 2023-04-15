@@ -2,7 +2,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #555;
+  background-color: #eee;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
     Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 300;
@@ -21,4 +21,8 @@ main {
 a {
   text-decoration: none;
   color: #111;
+}
+
+strong {
+  background: yellow;
 }

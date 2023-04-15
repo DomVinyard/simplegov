@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./AdminBar.module.css";
 
 const AdminBar = ({ id, shortTitle }: any) => {
   // Todo: get user. if admin, show, otherwise don't
@@ -12,8 +13,8 @@ const AdminBar = ({ id, shortTitle }: any) => {
         method: "POST",
         body: JSON.stringify({ event: { data: { new: { id, shortTitle } } } }),
       });
-      if (extractRes.status === 200) setStatus("Extracted pdf");
-      else throw new Error("Failed to extract pdf, summarising");
+      if (extractRes.status === 200) setStatus("Extracted pdf, summarising...");
+      else throw new Error("Failed to extract pdf");
       const summariseRes = await fetch("/api/summariseBill", {
         method: "POST",
         body: JSON.stringify({ event: { data: { new: { id } } } }),
@@ -28,7 +29,7 @@ const AdminBar = ({ id, shortTitle }: any) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <button onClick={regenerate}>Regenerate</button>
       {status && <span>status: {status}</span>}
     </div>

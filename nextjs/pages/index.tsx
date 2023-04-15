@@ -12,6 +12,9 @@ export async function getStaticProps() {
         bills {
           id
           shortTitle
+          description {
+            simplifiedShort
+          }
         }
       }
     `,
@@ -26,6 +29,7 @@ export default function Home({ bills }: any) {
       {bills?.map((bill: any) => (
         <Link key={bill.id} href={`/bill/${bill.id}`}>
           <h3>{bill.shortTitle}</h3>
+          <p>{bill.description.simplifiedShort}</p>
           {/* <p>{JSON.stringify(bill)}</p> */}
         </Link>
       ))}

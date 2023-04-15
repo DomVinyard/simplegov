@@ -2,6 +2,7 @@ import client from "@/lib/apollo-client";
 import { gql } from "@apollo/client";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import styles from "./[id].module.css";
 
 const AdminBar = dynamic(() => import("./../../components/AdminBar"), {
   loading: () => <p></p>,
@@ -39,6 +40,7 @@ export async function getStaticProps({ params }: any) {
           shortTitle
           description {
             simplifiedLong
+            simplifiedShort
           }
         }
       }
@@ -48,13 +50,18 @@ export async function getStaticProps({ params }: any) {
   return { props: bill };
 }
 
-export default function Topic({ id, shortTitle, description }: any) {
+export default function Topic(props: any) {
+  const { id, shortTitle, description } = props;
   return (
     <>
       <AdminBar {...{ id, shortTitle }} />
       <Link href={"/"}>Home</Link>
-      <h1>{shortTitle}</h1>
-      <p style={{ fontSize: 30 }}>{description.simplifiedLong}</p>
+      {/* <h1>{shortTitle}</h1> */}
+      <p
+        className={styles.p}
+        dangerouslySetInnerHTML={{ __html: `${description.simplifiedLong}` }}
+      />
+      <p style={{ opacity: 0.5 }}>{JSON.stringify(props)}</p>
     </>
   );
 }
