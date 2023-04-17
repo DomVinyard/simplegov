@@ -23,6 +23,7 @@ export async function getStaticProps() {
         }
       }
     `,
+    fetchPolicy: "network-only",
   });
   return { props: { bills }, revalidate: 60 };
 }

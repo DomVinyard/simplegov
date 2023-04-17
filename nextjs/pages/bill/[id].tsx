@@ -69,6 +69,7 @@ export async function getStaticProps({ params }: any) {
         }
       }
     `,
+    fetchPolicy: "network-only",
     variables: { id: params.id },
   });
   return {
