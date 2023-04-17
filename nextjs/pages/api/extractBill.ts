@@ -89,6 +89,7 @@ export default async function handler(
     res.send(200);
   } catch (err) {
     console.error(err);
+    await res.revalidate(`/`);
     return res.status(500).send(err);
   }
 }
