@@ -25,7 +25,10 @@ export async function getStaticProps() {
     `,
     fetchPolicy: "network-only",
   });
-  return { props: { bills }, revalidate: 60 };
+  return {
+    props: { bills },
+    // revalidate: 60
+  };
 }
 
 export default function Home({ bills }: any) {

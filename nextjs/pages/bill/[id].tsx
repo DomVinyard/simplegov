@@ -74,7 +74,7 @@ export async function getStaticProps({ params }: any) {
   });
   return {
     props: { ...bill, arguments: shuffleArray(bill.arguments) },
-    revalidate: 60,
+    // revalidate: 60,
   };
 }
 
