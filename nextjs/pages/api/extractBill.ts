@@ -58,8 +58,8 @@ export default async function handler(
       },
     });
     console.log(`Extracted bill ${id}/${shortTitle} (${rawText.length} chars)`);
-    res.revalidate(`/`);
-    res.revalidate(`/bill/${id}`);
+    await res.revalidate(`/`);
+    await res.revalidate(`/bill/${id}`);
     res.send(200);
   } catch (err) {
     console.error(err);

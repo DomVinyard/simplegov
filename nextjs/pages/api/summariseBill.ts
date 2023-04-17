@@ -82,8 +82,8 @@ export default async function handler(
         simplifiedShort,
       },
     });
-    res.revalidate(`/`);
-    res.revalidate(`/bill/${billID}`);
+    await res.revalidate(`/`);
+    await res.revalidate(`/bill/${billID}`);
     res.send(200);
   } catch (err) {
     console.error(err);
