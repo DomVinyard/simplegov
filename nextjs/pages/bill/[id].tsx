@@ -116,64 +116,66 @@ export default function Topic(props: any) {
           />
         </div>
       </Inner>
-      <div
-        style={{
-          background: `#${member.partyColour || "444"}`,
-          padding: "24px 0",
-        }}
-      >
-        <Inner>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img width={30} src={`/parties/${member.party}.png`} />
-              <span
-                style={{
-                  color: "#fff",
-                  marginLeft: 8,
-                  fontSize: 20,
-                  fontWeight: "bold",
-                }}
-              >
-                {member.party}
-              </span>
+      {member && (
+        <div
+          style={{
+            background: `#${member?.partyColour || "444"}`,
+            padding: "24px 0",
+          }}
+        >
+          <Inner>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img width={30} src={`/parties/${member.party}.png`} />
+                <span
+                  style={{
+                    color: "#fff",
+                    marginLeft: 8,
+                    fontSize: 20,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {member.party}
+                </span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img
+                  width={30}
+                  src={member.memberPhoto}
+                  style={{ borderRadius: "100%" }}
+                />
+                <span
+                  style={{
+                    color: "#fff",
+                    marginLeft: 8,
+                    fontSize: 20,
+                  }}
+                >
+                  {member.name}
+                </span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img width={28} src={"/house.png"} />
+                <span
+                  style={{
+                    color: "#fff",
+                    marginLeft: 8,
+                    fontSize: 20,
+                  }}
+                >
+                  {member.house}
+                </span>
+              </div>
             </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img
-                width={30}
-                src={member.memberPhoto}
-                style={{ borderRadius: "100%" }}
-              />
-              <span
-                style={{
-                  color: "#fff",
-                  marginLeft: 8,
-                  fontSize: 20,
-                }}
-              >
-                {member.name}
-              </span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <img width={28} src={"/house.png"} />
-              <span
-                style={{
-                  color: "#fff",
-                  marginLeft: 8,
-                  fontSize: 20,
-                }}
-              >
-                {member.house}
-              </span>
-            </div>
-          </div>
-        </Inner>
-      </div>
+          </Inner>
+        </div>
+      )}
       <div className={styles.argumentsWrapper}>
         <Inner>
           <h2 className={styles.h2}>
