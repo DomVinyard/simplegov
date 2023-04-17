@@ -94,7 +94,7 @@ export default async function handler(
             } thing. You are arguing against somebody who thinks that ${
               arg.argument
             }.` +
-            `Using between 50 and 100 words, explain why this person is wrong.
+            `Using less than 50 words, explain why this position is wrong.
             `,
         });
         return {
