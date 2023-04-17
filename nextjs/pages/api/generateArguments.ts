@@ -120,6 +120,7 @@ export default async function handler(
         arguments: allArguments,
       },
     });
+    res.revalidate(`/`);
     res.revalidate(`/bill/${billID}`);
     res.send(200);
   } catch (err) {
