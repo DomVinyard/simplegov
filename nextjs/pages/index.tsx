@@ -24,7 +24,7 @@ export async function getStaticProps() {
       }
     `,
   });
-  return { props: { bills } };
+  return { props: { bills }, revalidate: 60 };
 }
 
 export default function Home({ bills }: any) {

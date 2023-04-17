@@ -71,7 +71,10 @@ export async function getStaticProps({ params }: any) {
     `,
     variables: { id: params.id },
   });
-  return { props: { ...bill, arguments: shuffleArray(bill.arguments) } };
+  return {
+    props: { ...bill, arguments: shuffleArray(bill.arguments) },
+    revalidate: 60,
+  };
 }
 
 const Argument = ({ argument, depth }: any) => {
