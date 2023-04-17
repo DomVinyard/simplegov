@@ -4,6 +4,24 @@ import { NextApiRequest, NextApiResponse } from "next";
 import request from "request-promise";
 import pdfParse from "pdf-parse";
 
+const setNoText = async (id: string) => {
+  await client.mutate({
+    mutation: gql`
+      mutation UPDATE_BILL($id: String!) {
+        update_bills_by_pk(
+          pk_columns: { id: $id }
+          _set: { rawText: $rawText, documentLink: "NONE", govData: $govData }
+        ) {
+          id
+        }
+      }
+    `,
+    variables: {
+      id,
+    },
+  });
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -25,32 +43,19 @@ export default async function handler(
       (pub: any) => pub.publicationType.name === "Bill"
     )?.[0]?.links?.[0]?.url;
     if (!publication_url) {
-      await client.mutate({
-        mutation: gql`
-          mutation UPDATE_BILL($id: String!) {
-            update_bills_by_pk(
-              pk_columns: { id: $id }
-              _set: {
-                rawText: $rawText
-                documentLink: "NONE"
-                govData: $govData
-              }
-            ) {
-              id
-            }
-          }
-        `,
-        variables: {
-          id,
-        },
-      });
+      await setNoText(id);
       throw new Error("No publication found");
     }
     const pdf = await request(
       `https://app.scrapingbee.com/api/v1/?api_key=${process.env.SCRAPER_API_KEY}&url=${publication_url}&premium_proxy=True&render_js=False`,
       { encoding: null, timeout: 30000 }
     );
-    const { text: rawText } = await pdfParse(pdf);
+    const parsed = await pdfParse(pdf);
+    const rawText = parsed?.text;
+    if (!rawText) {
+      await setNoText(id);
+      throw new Error("No text extracted from publication");
+    }
     await client.mutate({
       mutation: gql`
         mutation UPDATE_BILL(
