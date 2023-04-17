@@ -13,7 +13,12 @@ export async function getStaticProps() {
       query GET_BILLS {
         bills(
           order_by: { lastUpdate: desc }
-          where: { documentLink: { _neq: "NONE" } }
+          where: {
+            _or: [
+              { documentLink: { _neq: "NONE" } }
+              { documentLink: { _is_null: true } }
+            ]
+          }
         ) {
           id
           shortTitle
