@@ -10,7 +10,7 @@ const setNoText = async (id: string) => {
       mutation UPDATE_BILL($id: String!) {
         update_bills_by_pk(
           pk_columns: { id: $id }
-          _set: { documentLink: "NONE", govData: $govData }
+          _set: { documentLink: "NONE" }
         ) {
           id
         }
