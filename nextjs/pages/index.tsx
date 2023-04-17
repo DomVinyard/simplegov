@@ -11,7 +11,10 @@ export async function getStaticProps() {
   } = await client.query({
     query: gql`
       query GET_BILLS {
-        bills(order_by: { lastUpdate: desc }) {
+        bills(
+          order_by: { lastUpdate: desc }
+          where: { documentLink: { _neq: "NONE" } }
+        ) {
           id
           shortTitle
           lastUpdate
@@ -47,32 +50,30 @@ export default function Home({ bills }: any) {
       </div>
       <Inner>
         <div className={styles.billsWrapper}>
-          {bills
-            ?.filter((bill: any) => !bill.shortTitle.includes("[HL]"))
-            .map((bill: any) => (
-              <Link href={`/bill/${bill.id}`} key={bill.id}>
-                <div className={styles.billWrapper}>
-                  <div
-                    style={{
-                      width: 50,
-                      background: `#${bill.partyColour || "444"}`,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img width={30} src={`/parties/${bill.party}.png`} />
-                  </div>
-                  <div className={styles.billInner}>
-                    <h3 className={styles.h3}>{bill.shortTitle}</h3>
-                    <p className={styles.p}>
-                      {bill.description?.simplifiedShort ||
-                        "Awaiting description"}
-                    </p>
-                  </div>
+          {bills.map((bill: any) => (
+            <Link href={`/bill/${bill.id}`} key={bill.id}>
+              <div className={styles.billWrapper}>
+                <div
+                  style={{
+                    width: 50,
+                    background: `#${bill.partyColour || "444"}`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img width={30} src={`/parties/${bill.party}.png`} />
                 </div>
-              </Link>
-            ))}
+                <div className={styles.billInner}>
+                  <h3 className={styles.h3}>{bill.shortTitle}</h3>
+                  <p className={styles.p}>
+                    {bill.description?.simplifiedShort ||
+                      "Awaiting description"}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </Inner>
     </>

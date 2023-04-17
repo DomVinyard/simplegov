@@ -24,7 +24,28 @@ export default async function handler(
     const publication_url = publications.filter(
       (pub: any) => pub.publicationType.name === "Bill"
     )?.[0]?.links?.[0]?.url;
-    if (!publication_url) throw new Error("No publication found");
+    if (!publication_url) {
+      await client.mutate({
+        mutation: gql`
+          mutation UPDATE_BILL($id: String!) {
+            update_bills_by_pk(
+              pk_columns: { id: $id }
+              _set: {
+                rawText: $rawText
+                documentLink: "NONE"
+                govData: $govData
+              }
+            ) {
+              id
+            }
+          }
+        `,
+        variables: {
+          id,
+        },
+      });
+      throw new Error("No publication found");
+    }
     const pdf = await request(
       `https://app.scrapingbee.com/api/v1/?api_key=${process.env.SCRAPER_API_KEY}&url=${publication_url}&premium_proxy=True&render_js=False`,
       { encoding: null, timeout: 30000 }
