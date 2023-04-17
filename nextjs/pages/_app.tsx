@@ -14,9 +14,9 @@ export default function App({ Component, pageProps }: any) {
   return (
     <>
       <Header {...pageProps} />
-      <Inner>
-        <Component {...pageProps} />
-      </Inner>
+      {/* <Inner> */}
+      <Component {...pageProps} />
+      {/* </Inner> */}
     </>
   );
 }

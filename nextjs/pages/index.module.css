@@ -1,0 +1,23 @@
+.billWrapper {
+  background-color: #ddd;
+  margin: 12px 0px;
+  display: flex;
+}
+.billInner {
+  padding: 24px 24px;
+}
+
+.billsWrapper {
+  margin-top: 32px;
+}
+
+.h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.p {
+  margin: 0;
+  padding: 0;
+  margin-top: 8px;
+}

@@ -3,9 +3,7 @@ import Link from "next/link";
 import { Inner } from "../pages/_app";
 import styles from "./Header.module.css";
 
-export default function Header({ slug, audience, page }: any) {
-  const pagePath = page === "groups" ? "groups" : `topic/${slug}`;
-  const audiencePath = audience === "5" ? `20` : "5";
+export default function Header() {
   return (
     <header>
       <Inner>
@@ -15,7 +13,7 @@ export default function Header({ slug, audience, page }: any) {
               className={styles.pointer}
               src="/logo.png"
               alt="Logo"
-              width={240}
+              width={232}
               height={38}
             />
           </Link>

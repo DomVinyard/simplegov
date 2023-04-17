@@ -11,11 +11,16 @@ export default async function handler(
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const { id, shortTitle } = body.event.data.new;
+    const billEndpoint = `https://bills-api.parliament.uk/api/v1/Bills/${id}`;
     const publicationEndpoint = `https://bills-api.parliament.uk/api/v1/Bills/${id}/Publications`;
-    const governmentRes = await fetch(publicationEndpoint, {
+    const billRes = await fetch(billEndpoint, {
       headers: { "Content-Type": "application/pdf" },
     });
-    const { publications } = await governmentRes.json();
+    const publicationRes = await fetch(publicationEndpoint, {
+      headers: { "Content-Type": "application/pdf" },
+    });
+    const govData = await billRes.json();
+    const { publications } = await publicationRes.json();
     const publication_url = publications.filter(
       (pub: any) => pub.publicationType.name === "Bill"
     )?.[0]?.links?.[0]?.url;
@@ -31,16 +36,26 @@ export default async function handler(
           $id: String!
           $rawText: String!
           $documentLink: String!
+          $govData: jsonb
         ) {
           update_bills_by_pk(
             pk_columns: { id: $id }
-            _set: { rawText: $rawText, documentLink: $documentLink }
+            _set: {
+              rawText: $rawText
+              documentLink: $documentLink
+              govData: $govData
+            }
           ) {
             id
           }
         }
       `,
-      variables: { id, rawText, documentLink: publication_url },
+      variables: {
+        id,
+        rawText,
+        documentLink: publication_url,
+        govData: govData,
+      },
     });
     console.log(`Extracted bill ${id}/${shortTitle} (${rawText.length} chars)`);
     res.send(200);

@@ -2,11 +2,16 @@ import { useState } from "react";
 import styles from "./AdminBar.module.css";
 
 const AdminBar = ({ id, shortTitle }: any) => {
-  // Todo: get user. if admin, show, otherwise don't
-
   const [status, setStatus] = useState("");
+  let adminKey: any;
+  if (typeof window !== "undefined") {
+    adminKey = localStorage?.getItem("admin");
+  }
+  if (!adminKey) return null;
 
   const regenerate = async (stages: string[]) => {
+    // get value from local storage
+
     try {
       if (stages.includes("pdf")) {
         setStatus("Fetching from https://bills-api.parliament.uk");
@@ -14,15 +19,16 @@ const AdminBar = ({ id, shortTitle }: any) => {
           method: "POST",
           body: JSON.stringify({
             event: { data: { new: { id, shortTitle } } },
+            adminKey,
           }),
         });
         if (extractRes.status !== 200) throw new Error("Failed to extract pdf");
       }
-      if (stages.includes("ai")) {
+      if (stages.includes("summary")) {
         setStatus("Summarising text");
         const summariseRes = await fetch("/api/summariseBill", {
           method: "POST",
-          body: JSON.stringify({ event: { data: { new: { id } } } }),
+          body: JSON.stringify({ event: { data: { new: { id } } }, adminKey }),
         });
         if (summariseRes.status !== 200)
           throw new Error("Failed to create summary");
@@ -31,7 +37,10 @@ const AdminBar = ({ id, shortTitle }: any) => {
         setStatus("Generating arguments for and against");
         const argueRes = await fetch("/api/generateArguments", {
           method: "POST",
-          body: JSON.stringify({ event: { data: { new: { billID: id } } } }),
+          body: JSON.stringify({
+            event: { data: { new: { billID: id } } },
+            adminKey,
+          }),
         });
         if (argueRes.status !== 200)
           throw new Error("Failed to generate arguments");
