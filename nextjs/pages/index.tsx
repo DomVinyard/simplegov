@@ -43,30 +43,32 @@ export default function Home({ bills }: any) {
       </div>
       <Inner>
         <div className={styles.billsWrapper}>
-          {bills?.map((bill: any) => (
-            <Link href={`/bill/${bill.id}`} key={bill.id}>
-              <div className={styles.billWrapper}>
-                <div
-                  style={{
-                    width: 50,
-                    background: `#${bill.partyColour || "444"}`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <img width={30} src={`/parties/${bill.party}.png`} />
+          {bills
+            ?.filter((bill: any) => !bill.shortTitle.includes("[HL]"))
+            .map((bill: any) => (
+              <Link href={`/bill/${bill.id}`} key={bill.id}>
+                <div className={styles.billWrapper}>
+                  <div
+                    style={{
+                      width: 50,
+                      background: `#${bill.partyColour || "444"}`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <img width={30} src={`/parties/${bill.party}.png`} />
+                  </div>
+                  <div className={styles.billInner}>
+                    <h3 className={styles.h3}>{bill.shortTitle}</h3>
+                    <p className={styles.p}>
+                      {bill.description?.simplifiedShort ||
+                        "Awaiting description"}
+                    </p>
+                  </div>
                 </div>
-                <div className={styles.billInner}>
-                  <h3 className={styles.h3}>{bill.shortTitle}</h3>
-                  <p className={styles.p}>
-                    {bill.description?.simplifiedShort ||
-                      "Awaiting description"}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))}
         </div>
       </Inner>
     </>
