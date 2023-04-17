@@ -107,7 +107,6 @@ export default async function handler(
     );
 
     const allArguments = [...argsProcessed, ...argumentResponses];
-    console.log(allArguments);
 
     await client.mutate({
       mutation: gql`
@@ -121,6 +120,7 @@ export default async function handler(
         arguments: allArguments,
       },
     });
+    res.revalidate(`/bill/${billID}`);
     res.send(200);
   } catch (err) {
     console.error(err);

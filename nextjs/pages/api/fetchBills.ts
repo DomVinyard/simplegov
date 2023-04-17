@@ -43,6 +43,7 @@ export default async function handler(
       `,
       variables: { bills },
     });
+    res.revalidate(`/`);
     return res.status(200).send(`fetched ${bills.length} bills`);
   } catch (err) {
     console.error(err);
