@@ -66,7 +66,7 @@ export default async function handler(
               simplifiedLong: $simplifiedLong
             }
             on_conflict: {
-              constraint: descriptions_billID_key
+              constraint: descriptions_billID2_key
               update_columns: [simplifiedLong, simplifiedShort]
             }
           ) {

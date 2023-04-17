@@ -26,12 +26,12 @@ event_triggers:
     definition:
       enable_manual: false
       insert:
-        columns: '*'
+        columns: "*"
     retry_conf:
       interval_sec: 10
       num_retries: 0
       timeout_sec: 60
-    webhook: '{{API_ENDPOINT}}/api/extractBill'
+    webhook: "{{API_ENDPOINT}}/api/extractBill"
     request_transform:
       query_params: {}
       template_engine: Kriti
@@ -44,6 +44,6 @@ event_triggers:
           - rawText
     retry_conf:
       interval_sec: 10
-      num_retries: 0
+      num_retries: 3
       timeout_sec: 60
-    webhook: '{{API_ENDPOINT}}/api/summariseBill'
+    webhook: "{{API_ENDPOINT}}/api/summariseBill"
