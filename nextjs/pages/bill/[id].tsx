@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     } = await client.query({
       query: gql`
         query GET_BILLS {
-          bills {
+          bills(limit: 10) {
             id
           }
         }
