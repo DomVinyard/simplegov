@@ -4,6 +4,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 // Run every minute
 
+const isDev = process.env.NODE_ENV === "development";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -13,11 +15,10 @@ export default async function handler(
     const govResponse = await fetch(
       `https://bills-api.parliament.uk/api/v1/Bills` +
         `?CurrentHouse=All` +
-        `&OriginatingHouse=Commons` +
         `&IsDefeated=false` +
         `&IsWithdrawn=false` +
         `&SortOrder=DateUpdatedDescending` +
-        `&Take=3`
+        `&Take=${isDev ? 1 : 10}`
     );
     const json = await govResponse.json();
     const bills = json.items.map((bill: any) => {

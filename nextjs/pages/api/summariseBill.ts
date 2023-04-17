@@ -2,9 +2,6 @@ import client from "@/lib/apollo-client";
 import runGPTQuery from "@/lib/gpt-query";
 import { gql } from "@apollo/client";
 import { NextApiRequest, NextApiResponse } from "next";
-
-// Run every minute
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

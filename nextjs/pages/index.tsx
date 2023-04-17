@@ -11,9 +11,10 @@ export async function getStaticProps() {
   } = await client.query({
     query: gql`
       query GET_BILLS {
-        bills {
+        bills(order_by: { lastUpdate: desc }) {
           id
           shortTitle
+          lastUpdate
           description {
             simplifiedShort
           }
