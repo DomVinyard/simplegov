@@ -21,7 +21,7 @@ export default async function handler(
     });
     const govData = await billRes.json();
     const { publications } = await publicationRes.json();
-    const publication_url = publications.filter(
+    const publication_url = publications?.filter(
       (pub: any) => pub.publicationType.name === "Bill"
     )?.[0]?.links?.[0]?.url;
     if (!publication_url) {
