@@ -4,6 +4,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import request from "request-promise";
 import pdfParse from "pdf-parse";
 
+// TODO: run this if lastupdated changes
+
 const setNoText = async (id: string) => {
   await client.mutate({
     mutation: gql`
@@ -44,6 +46,7 @@ export default async function handler(
     )?.[0]?.links?.[0]?.url;
     if (!publication_url) {
       await setNoText(id);
+      await res.revalidate(`/`);
       throw new Error("No publication found");
     }
     const pdf = await request(
@@ -54,6 +57,7 @@ export default async function handler(
     const rawText = parsed?.text;
     if (!rawText) {
       await setNoText(id);
+      await res.revalidate(`/`);
       throw new Error("No text extracted from publication");
     }
     await client.mutate({
