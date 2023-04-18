@@ -17,6 +17,11 @@ export default function Header() {
               height={38}
             />
           </Link>
+          <Link href={`/about`}>
+            <div className={styles.infoWrapper}>
+              <img src="/info.png" width={26} />
+            </div>
+          </Link>
         </div>
       </Inner>
     </header>

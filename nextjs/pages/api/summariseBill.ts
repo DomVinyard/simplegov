@@ -38,8 +38,11 @@ export default async function handler(
     });
 
     const simplifiedLongHighlighted = await runGPTQuery({
-      system: `Your job is to annotate a piece of text. You will return the same text you received with the annotations included.`,
-      query: `Take the following piece of text, identify up to three key concepts and return the same text with those concepts wrapped in <strong> tags: \n\n${simplifiedLong})`,
+      system: `Your job is to annotate a piece of text. 
+      You will return the same text you received with the annotations included.`,
+      query: `Take the following piece of text, identify up to three 
+      key concepts and return the exact same block of text with the identified
+      concepts wrapped in <strong> tags: \n\n${simplifiedLong})`,
     });
     if (!simplifiedLong) throw new Error("No summary found");
     const simplifiedShort = await runGPTQuery({
