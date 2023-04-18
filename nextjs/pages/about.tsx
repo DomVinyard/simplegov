@@ -14,7 +14,7 @@ export default function About() {
           transparent and open to everybody. We do not make any money from this
           website.
         </p>
-        <p className={styles.p}>
+        {/* <p className={styles.p}>
           We can help consult on your next AI project,{" "}
           <a
             style={{ color: "#1d70b8", fontWeight: "bold" }}
@@ -23,7 +23,7 @@ export default function About() {
             drop us a message
           </a>
           .
-        </p>
+        </p> */}
       </Inner>
     </div>
   );
