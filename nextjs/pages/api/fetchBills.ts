@@ -6,6 +6,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
+const FETCH_COUNT = 60;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -18,7 +20,7 @@ export default async function handler(
         `&IsDefeated=false` +
         `&IsWithdrawn=false` +
         `&SortOrder=DateUpdatedDescending` +
-        `&Take=${isDev ? 1 : 55}`
+        `&Take=${isDev ? 1 : FETCH_COUNT}`
     );
     const json = await govResponse.json();
     const bills = json.items.map((bill: any) => {
