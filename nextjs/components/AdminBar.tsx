@@ -11,6 +11,7 @@ const AdminBar = ({ id, shortTitle }: any) => {
   const regenerate = async (stages: string[]) => {
     // get value from local storage
 
+    if (!adminKey) return null;
     try {
       if (stages.includes("pdf")) {
         setStatus("Fetching from https://bills-api.parliament.uk");
@@ -51,11 +52,9 @@ const AdminBar = ({ id, shortTitle }: any) => {
       setStatus(error?.message as string);
     }
   };
+  if (!adminKey) return null;
   return (
-    <div
-      className={styles.container}
-      style={{ display: adminKey ? "none" : "block" }}
-    >
+    <div className={styles.container}>
       <button onClick={() => regenerate(["pdf", "summary", "arguments"])}>
         Regenerate PDF
       </button>
