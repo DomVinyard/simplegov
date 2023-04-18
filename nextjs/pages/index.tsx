@@ -28,6 +28,7 @@ export async function getStaticProps() {
           description {
             simplifiedShort
           }
+          isAct: govData(path: "isAct")
           party: govData(path: "sponsors.[0].member.party")
           partyColour: govData(path: "sponsors.[0].member.partyColour")
           arguments_aggregate {
@@ -42,7 +43,11 @@ export async function getStaticProps() {
     fetchPolicy: "network-only",
   });
   return {
-    props: { bills },
+    props: {
+      bills: bills.filter((bill: any) => {
+        return !bill.isAct;
+      }),
+    },
     revalidate: 60,
   };
 }
