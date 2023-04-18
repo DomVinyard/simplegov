@@ -3,8 +3,8 @@ import Link from "next/link";
 import styles from "./BillCard.module.css";
 
 export default function BillCard({ bill }: any) {
-  const stage = stages.find((s) => s.id === bill.stage) as any;
-  const index = indexes.indexOf(stage.id);
+  const stage = stages.find((s) => s?.id === bill.stage) as any;
+  const index = indexes.indexOf(stage?.id);
   return (
     <Link href={`/bill/${bill.id}`} key={bill.id}>
       <div className={styles.billWrapper}>
