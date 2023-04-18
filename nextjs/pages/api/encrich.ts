@@ -2,26 +2,16 @@ import client from "@/lib/apollo-client";
 import { gql } from "@apollo/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// Run every minute
+// Run every 10 minutes
 
-const attemptExtract = async () => {
-  // try and extract something unextracted
-};
-
-const attemptSummary = async () => {
-  // try and generate summaries for something without a summary
-};
-
-const attemptArgument = async () => {
-  // try and generate arguments for something without arguments
+const makeAttempt = async () => {
+  // pick a random item and regenerate it
 };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await attemptExtract();
-  await attemptSummary();
-  await attemptArgument();
+  await makeAttempt();
   res.send(200);
 }

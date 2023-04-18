@@ -3,7 +3,7 @@ import runGPTQuery from "@/lib/gpt-query";
 import { gql } from "@apollo/client";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const CHAR_LIMIT = 15000;
+const CHAR_LIMIT = 12000;
 
 export default async function handler(
   req: NextApiRequest,
