@@ -3,7 +3,7 @@ import Link from "next/link";
 import styles from "./BillCard.module.css";
 
 export default function BillCard({ bill }: any) {
-  const stage = stages.find((s) => s.id === bill.stage);
+  const stage = stages.find((s) => s.id === bill.stage) as any;
   const index = indexes.indexOf(stage.id);
   return (
     <Link href={`/bill/${bill.id}`} key={bill.id}>
@@ -28,39 +28,48 @@ export default function BillCard({ bill }: any) {
               {bill.description?.simplifiedShort || "Awaiting description"}
             </p>
             {/* <p className={styles.p}>stage {JSON.stringify({ stage, index })}</p> */}
-            <div
-              style={{
-                display: "flex",
-                // justifyContent: "space-between",
-                width: "100%",
-                marginTop: 12,
-                alignItems: "center",
-              }}
-            >
-              {Array.from(Array(12)).map((x, i) => {
-                return (
-                  <div
-                    key={i}
-                    style={{
-                      height: 8,
-                      width: 14,
-                      marginRight: 2,
-                      background: i <= index ? "#1d70b8" : "#ccc",
-                    }}
-                  ></div>
-                );
-              })}
+            {index > 0 && (
               <div
                 style={{
-                  fontSize: 13,
-                  fontWeight: "bold",
-                  color: "#1d70b8",
-                  marginLeft: 3,
+                  display: "flex",
+                  // justifyContent: "space-between",
+                  width: "100%",
+                  marginTop: 12,
+                  alignItems: "center",
                 }}
               >
-                {Math.floor(((index + 1) / 12) * 100)}% passed
+                {Array.from(Array(12)).map((x, i) => {
+                  return (
+                    <div
+                      key={i}
+                      style={{
+                        height: 8,
+                        width: 12,
+                        marginRight: 2,
+                        background: i <= index ? "#1d70b8" : "#ccc",
+                      }}
+                    ></div>
+                  );
+                })}
+                <div
+                  style={{
+                    fontSize: 13,
+                    fontWeight: "bold",
+                    color: "#1d70b8",
+                    marginLeft: 3,
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <img
+                    src="/hourglass.png"
+                    width={11}
+                    style={{ marginRight: 2 }}
+                  />
+                  {Math.floor(((index + 1) / 12) * 100)}%
+                </div>
               </div>
-            </div>
+            )}
           </div>
           <div className={styles.commentWrapper}>
             <img
