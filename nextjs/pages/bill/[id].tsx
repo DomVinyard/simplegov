@@ -24,10 +24,10 @@ export async function getStaticPaths() {
       `,
     });
     const paths = bills.map((params: any) => ({ params }));
-    return { paths, fallback: "blocking" };
+    return { paths, fallback: true };
   } catch (error) {
     console.error(error);
-    return { paths: [], fallback: "blocking" };
+    return { paths: [], fallback: true };
   }
 }
 
