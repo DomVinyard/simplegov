@@ -28,6 +28,11 @@ export async function getStaticProps() {
           }
           party: govData(path: "sponsors.[0].member.party")
           partyColour: govData(path: "sponsors.[0].member.partyColour")
+          arguments_aggregate {
+            aggregate {
+              count
+            }
+          }
         }
       }
     `,
@@ -62,12 +67,31 @@ export default function Home({ bills }: any) {
                 >
                   <img width={30} src={`/parties/${bill.party}.png`} />
                 </div>
-                <div className={styles.billInner}>
-                  <h3 className={styles.h3}>{bill.shortTitle}</h3>
-                  <p className={styles.p}>
-                    {bill.description?.simplifiedShort ||
-                      "Awaiting description"}
-                  </p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "100%",
+                    alignItems: "center",
+                  }}
+                >
+                  <div className={styles.billInner}>
+                    <h3 className={styles.h3}>{bill.shortTitle}</h3>
+                    <p className={styles.p}>
+                      {bill.description?.simplifiedShort ||
+                        "Awaiting description"}
+                    </p>
+                  </div>
+                  <div style={{ marginRight: 32 }}>
+                    <img
+                      src="/debate.png"
+                      height={14}
+                      style={{ marginRight: 4, marginBottom: -2 }}
+                    />
+                    <span style={{ fontWeight: "bold", color: "#444" }}>
+                      {bill?.arguments_aggregate?.aggregate?.count || 0}
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>
