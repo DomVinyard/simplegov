@@ -35,7 +35,7 @@ export async function getStaticProps() {
   });
   return {
     props: { bills },
-    // revalidate: 60
+    revalidate: 60,
   };
 }
 
