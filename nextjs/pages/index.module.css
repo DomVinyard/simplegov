@@ -39,3 +39,37 @@
   align-items: center;
   justify-content: center;
 }
+
+.header {
+  background: #1d70b8;
+  color: #fff;
+  padding: 48px 0;
+}
+
+/* mobile */
+
+@media (max-width: 600px) {
+  .h1 {
+    font-size: 38px;
+  }
+  .h2 {
+    font-size: 27px;
+  }
+  .h3 {
+    font-size: 15px;
+  }
+  .billInner {
+    padding: 12px 12px;
+  }
+  .billWrapper {
+    margin: 0;
+    border-top: 1px solid #444;
+    background-color: #fff;
+  }
+  .billsWrapper {
+    margin: 0;
+  }
+  .header {
+    padding: 64px 16px;
+  }
+}

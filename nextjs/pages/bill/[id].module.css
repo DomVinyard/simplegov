@@ -30,13 +30,15 @@
   padding-top: 48px;
   background-color: #fff;
   padding-bottom: 64px;
+  padding-left: 2.5%;
+  padding-right: 2.5%;
 }
 
 /* mobile */
 @media (max-width: 768px) {
   .h1 {
     font-size: 36px;
-    margin-top: 62px;
+    margin-top: 48px;
   }
 
   .h2 {
@@ -46,7 +48,16 @@
   }
 
   .billWrapper {
-    padding-bottom: 64px;
+    padding-bottom: 28px;
+    max-width: 95%;
+    margin: 0 auto;
+  }
+
+  .argumentsWrapper {
+    margin: 0 auto;
+    padding-top: 24px;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
   }
 
   .p {

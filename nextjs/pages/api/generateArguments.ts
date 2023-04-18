@@ -6,6 +6,21 @@ import { v4 as uuidv4 } from "uuid";
 
 // Run every minute
 
+const deleteExistingArguments = async (billID: string) => {
+  await client.mutate({
+    mutation: gql`
+      mutation ($billID: String!) {
+        delete_arguments(where: { billID: { _eq: $billID } }) {
+          affected_rows
+        }
+      }
+    `,
+    variables: {
+      billID,
+    },
+  });
+};
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -15,18 +30,18 @@ export default async function handler(
     const { billID } = body.event.data.new;
     // console.log({ billID });
     // delete existing
-    await client.mutate({
-      mutation: gql`
-        mutation ($billID: String!) {
-          delete_arguments(where: { billID: { _eq: $billID } }) {
-            affected_rows
-          }
-        }
-      `,
-      variables: {
-        billID,
-      },
-    });
+    // await client.mutate({
+    //   mutation: gql`
+    //     mutation ($billID: String!) {
+    //       delete_arguments(where: { billID: { _eq: $billID } }) {
+    //         affected_rows
+    //       }
+    //     }
+    //   `,
+    //   variables: {
+    //     billID,
+    //   },
+    // });
     const {
       data: {
         bill: { rawText },
@@ -61,7 +76,6 @@ export default async function handler(
         against: ['argument 1', 'argument 2', 'argument 3']
       }`,
     });
-    console.log(billArguments);
 
     const argsAsJSON = JSON.parse(`${billArguments}`);
     const argsProcessed = [
@@ -116,7 +130,7 @@ export default async function handler(
         );
       }
     );
-
+    await deleteExistingArguments(billID);
     await client.mutate({
       mutation: gql`
         mutation ($arguments: [arguments_insert_input!]!) {

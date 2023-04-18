@@ -43,7 +43,7 @@ export default function Home({ bills }: any) {
   // return <>{JSON.stringify(props)}</>;
   return (
     <>
-      <div style={{ background: "#1d70b8", color: "#fff", padding: "48px 0" }}>
+      <div className={styles.header}>
         <Inner>
           <h1 className={styles.h1}>Welcome to SimpleGOV.UK</h1>
           <h2 className={styles.h2}>
