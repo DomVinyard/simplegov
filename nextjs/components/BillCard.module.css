@@ -1,0 +1,52 @@
+.billWrapper {
+  background-color: #ddd;
+  margin: 12px 0px;
+  display: flex;
+}
+.billInner {
+  padding: 24px 24px;
+}
+
+.h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.p {
+  margin: 0;
+  padding: 0;
+  margin-top: 8px;
+}
+
+.partyWrapper {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.commentWrapper {
+  margin: 0 16px;
+  min-width: 44px;
+}
+
+/* mobile */
+
+@media (max-width: 600px) {
+  .h3 {
+    font-size: 15px;
+  }
+  .billInner {
+    padding: 12px 12px;
+  }
+  .billWrapper {
+    margin: 0;
+    border-top: 1px solid #444;
+    background-color: #fff;
+  }
+  .commentWrapper {
+    margin: 0 8px;
+  }
+}

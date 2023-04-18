@@ -1,9 +1,11 @@
 import client from "@/lib/apollo-client";
-import Link from "next/link";
-
 import { gql } from "@apollo/client";
 import { Inner } from "./_app";
 import styles from "./index.module.css";
+import BillCard from "@/components/BillCard";
+
+const H1 = "Welcome to SimpleGOV.UK";
+const H2 = "These are the laws your politicians are trying to pass right now";
 
 export async function getStaticProps() {
   const {
@@ -33,6 +35,7 @@ export async function getStaticProps() {
               count
             }
           }
+          stage: govData(path: "currentStage.stageId")
         }
       }
     `,
@@ -45,56 +48,18 @@ export async function getStaticProps() {
 }
 
 export default function Home({ bills }: any) {
-  // return <>{JSON.stringify(props)}</>;
   return (
     <>
       <div className={styles.header}>
         <Inner>
-          <h1 className={styles.h1}>Welcome to SimpleGOV.UK</h1>
-          <h2 className={styles.h2}>
-            These are the laws your politicians are trying to pass right now
-          </h2>
+          <h1 className={styles.h1}>{H1}</h1>
+          <h2 className={styles.h2}>{H2}</h2>
         </Inner>
       </div>
       <Inner>
         <div className={styles.billsWrapper}>
           {bills.map((bill: any) => (
-            <Link href={`/bill/${bill.id}`} key={bill.id}>
-              <div className={styles.billWrapper}>
-                <div
-                  className={styles.partyWrapper}
-                  style={{ background: `#${bill.partyColour || "444"}` }}
-                >
-                  <img width={30} src={`/parties/${bill.party}.png`} />
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "100%",
-                    alignItems: "center",
-                  }}
-                >
-                  <div className={styles.billInner}>
-                    <h3 className={styles.h3}>{bill.shortTitle}</h3>
-                    <p className={styles.p}>
-                      {bill.description?.simplifiedShort ||
-                        "Awaiting description"}
-                    </p>
-                  </div>
-                  <div style={{ marginRight: 32 }}>
-                    <img
-                      src="/debate.png"
-                      height={14}
-                      style={{ marginRight: 4, marginBottom: -2 }}
-                    />
-                    <span style={{ fontWeight: "bold", color: "#444" }}>
-                      {bill?.arguments_aggregate?.aggregate?.count || 0}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Link>
+            <BillCard bill={bill} key={bill.id} />
           ))}
         </div>
       </Inner>
