@@ -52,9 +52,11 @@ const AdminBar = ({ id, shortTitle }: any) => {
       setStatus(error?.message as string);
     }
   };
-  if (!adminKey) return null;
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{ display: adminKey ? "block" : "none" }}
+    >
       <button onClick={() => regenerate(["pdf", "summary", "arguments"])}>
         Regenerate PDF
       </button>

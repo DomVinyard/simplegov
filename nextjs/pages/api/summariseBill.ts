@@ -2,6 +2,9 @@ import client from "@/lib/apollo-client";
 import runGPTQuery from "@/lib/gpt-query";
 import { gql } from "@apollo/client";
 import { NextApiRequest, NextApiResponse } from "next";
+
+const CHAR_LIMIT = 15000;
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -26,7 +29,6 @@ export default async function handler(
       variables: { billID },
     });
 
-    const CHAR_LIMIT = 12000;
     const simplifiedLong = await runGPTQuery({
       system:
         `You are a helpful researcher who wants to help people to understand a piece of uk legislation.` +
