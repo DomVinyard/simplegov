@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { Inner } from "./_app";
 import styles from "./index.module.css";
 import BillCard from "@/components/BillCard";
+import { indexes, stages } from "@/lib/stages";
 
 const H1 = "Welcome to SimpleGOV.UK";
 const H2 = "These are the laws your politicians are trying to pass right now";
@@ -14,7 +15,6 @@ export async function getStaticProps() {
     query: gql`
       query GET_BILLS {
         bills(
-          order_by: { lastUpdate: desc }
           where: {
             _or: [
               { documentLink: { _neq: "NONE" } }
@@ -63,9 +63,17 @@ export default function Home({ bills }: any) {
       </div>
       <Inner>
         <div className={styles.billsWrapper}>
-          {bills.map((bill: any) => (
-            <BillCard bill={bill} key={bill.id} />
-          ))}
+          {bills
+            .sort((a: any, b: any) => {
+              const aStage = stages.find((s) => s.id === a.stage) as any;
+              const bStage = stages.find((s) => s.id === b.stage) as any;
+              const aIndex = indexes.indexOf(aStage.id);
+              const bIndex = indexes.indexOf(bStage.id);
+              return bIndex - aIndex;
+            })
+            .map((bill: any) => (
+              <BillCard bill={bill} key={bill.id} />
+            ))}
         </div>
       </Inner>
     </>

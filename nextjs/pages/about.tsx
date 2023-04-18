@@ -8,9 +8,9 @@ export default function About() {
       <Inner>
         <h1 className={styles.h1}>Created for UK citizens</h1>
         <p className={styles.p}>
-          All of the content on this project is generated in realtime by a
-          machine learning model interfacing with the official government API.
-          We released this because we think laws and policy should be more
+          All of the content on this project is generated in realtime by a AI
+          language model interfacing with the official government API. We
+          released this because we think laws and policy should be more
           transparent and open to everybody. We do not make any money from this
           project.
         </p>
