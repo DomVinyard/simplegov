@@ -88,7 +88,7 @@ const generateArgs = async (billID: string) => {
             } thing. You are arguing against somebody who thinks that ${
             arg.argument
           }.` +
-          `Using less than 50 words, explain why this position is wrong.
+          ` Present a counter argument in 50 words or less.
             `,
       });
       return {
