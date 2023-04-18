@@ -46,7 +46,7 @@ export default function BillCard({ bill }: any) {
                         height: 8,
                         width: 12,
                         marginRight: 2,
-                        background: i <= index ? "#1d70b8" : "#ccc",
+                        background: i <= index ? "#1d70b8" : "#BBB",
                       }}
                     ></div>
                   );
