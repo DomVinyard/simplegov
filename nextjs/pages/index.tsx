@@ -65,8 +65,8 @@ export default function Home({ bills }: any) {
         <div className={styles.billsWrapper}>
           {bills
             .sort((a: any, b: any) => {
-              const aStage = stages.find((s) => s.id === a.stage) as any;
-              const bStage = stages.find((s) => s.id === b.stage) as any;
+              const aStage = stages.find((s) => s?.id === a.stage) as any;
+              const bStage = stages.find((s) => s?.id === b.stage) as any;
               const aIndex = indexes.indexOf(aStage.id);
               const bIndex = indexes.indexOf(bStage.id);
               return bIndex - aIndex;
