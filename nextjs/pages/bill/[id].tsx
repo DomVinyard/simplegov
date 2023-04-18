@@ -97,16 +97,18 @@ export default function Topic(props: any) {
         </div>
       </Inner>
       {member ? <InfoPanel member={member} /> : null}
-      <div className={styles.argumentsWrapper}>
-        <Inner>
-          <h2 className={styles.h2}>
-            {arguments_aggregate.aggregate.count} debates
-          </h2>
-          {props.arguments.map((argument: any) => (
-            <Argument key={argument.argument} argument={argument} depth={0} />
-          ))}
-        </Inner>
-      </div>
+      {arguments_aggregate?.aggregate?.count && (
+        <div className={styles.argumentsWrapper}>
+          <Inner>
+            <h2 className={styles.h2}>
+              {arguments_aggregate?.aggregate?.count} debates
+            </h2>
+            {props.arguments.map((argument: any) => (
+              <Argument key={argument.argument} argument={argument} depth={0} />
+            ))}
+          </Inner>
+        </div>
+      )}
       <AdminBar {...{ id, shortTitle }} />
     </>
   );
