@@ -52,11 +52,11 @@ const AdminBar = ({ id, shortTitle }: any) => {
       setStatus(error?.message as string);
     }
   };
+
+  const isDevMode = process.env.NODE_ENV === "development";
+  if (!adminKey && !isDevMode) return null;
   return (
-    <div
-      className={styles.container}
-      style={{ display: adminKey ? "block" : "none" }}
-    >
+    <div className={styles.container}>
       <button onClick={() => regenerate(["pdf", "summary", "arguments"])}>
         Regenerate PDF
       </button>
