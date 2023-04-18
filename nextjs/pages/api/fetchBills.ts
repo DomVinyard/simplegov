@@ -18,7 +18,7 @@ export default async function handler(
         `&IsDefeated=false` +
         `&IsWithdrawn=false` +
         `&SortOrder=DateUpdatedDescending` +
-        `&Take=${isDev ? 1 : 50}`
+        `&Take=${isDev ? 1 : 55}`
     );
     const json = await govResponse.json();
     const bills = json.items.map((bill: any) => {
