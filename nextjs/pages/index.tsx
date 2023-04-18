@@ -71,6 +71,7 @@ export default function Home({ bills }: any) {
               const bIndex = indexes.indexOf(bStage?.id);
               return bIndex - aIndex;
             })
+            .filter(Boolean)
             .map((bill: any) => (
               <BillCard bill={bill} key={bill.id} />
             ))}
