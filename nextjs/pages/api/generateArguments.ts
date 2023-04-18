@@ -106,7 +106,16 @@ export default async function handler(
       })
     );
 
-    const allArguments = [...argsProcessed, ...argumentResponses];
+    const allArguments = [...argsProcessed, ...argumentResponses].filter(
+      (argument) => {
+        return (
+          !argument.argument.toLowerCase().startsWith("i'm sorry") ||
+          !argument.argument.toLowerCase().startsWith("sorry") ||
+          !argument.argument.toLowerCase().includes("language model") ||
+          !argument.argument.toLowerCase().includes("openai")
+        );
+      }
+    );
 
     await client.mutate({
       mutation: gql`

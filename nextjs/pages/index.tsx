@@ -45,10 +45,8 @@ export default function Home({ bills }: any) {
     <>
       <div style={{ background: "#1d70b8", color: "#fff", padding: "48px 0" }}>
         <Inner>
-          <h1 style={{ marginTop: 0, fontSize: 46 }}>
-            Welcome to SimpleGOV.UK
-          </h1>
-          <h2 style={{ fontWeight: "normal" }}>
+          <h1 className={styles.h1}>Welcome to SimpleGOV.UK</h1>
+          <h2 className={styles.h2}>
             These are the laws your politicians are trying to pass right now
           </h2>
         </Inner>
@@ -59,13 +57,8 @@ export default function Home({ bills }: any) {
             <Link href={`/bill/${bill.id}`} key={bill.id}>
               <div className={styles.billWrapper}>
                 <div
-                  style={{
-                    width: 50,
-                    background: `#${bill.partyColour || "444"}`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
+                  className={styles.partyWrapper}
+                  style={{ background: `#${bill.partyColour || "444"}` }}
                 >
                   <img width={30} src={`/parties/${bill.party}.png`} />
                 </div>

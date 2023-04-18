@@ -11,6 +11,15 @@
   margin: 32px 0;
 }
 
+.h1 {
+  margin-top: 0;
+  font-size: 46px;
+}
+
+.h2 {
+  font-weight: normal;
+}
+
 .h3 {
   margin: 0;
   padding: 0;
@@ -20,4 +29,13 @@
   margin: 0;
   padding: 0;
   margin-top: 8px;
+}
+
+.partyWrapper {
+  width: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

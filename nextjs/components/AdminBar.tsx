@@ -7,7 +7,6 @@ const AdminBar = ({ id, shortTitle }: any) => {
   if (typeof window !== "undefined") {
     adminKey = localStorage?.getItem("admin");
   }
-  if (!adminKey) return null;
 
   const regenerate = async (stages: string[]) => {
     // get value from local storage
@@ -52,9 +51,11 @@ const AdminBar = ({ id, shortTitle }: any) => {
       setStatus(error?.message as string);
     }
   };
-
   return (
-    <div className={styles.container}>
+    <div
+      className={styles.container}
+      style={{ display: adminKey ? "none" : "block" }}
+    >
       <button onClick={() => regenerate(["pdf", "summary", "arguments"])}>
         Regenerate PDF
       </button>
