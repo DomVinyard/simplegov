@@ -29,6 +29,7 @@ export async function getStaticProps() {
             simplifiedShort
           }
           isAct: govData(path: "isAct")
+          isDefeated: govData(path: "isDefeated")
           party: govData(path: "sponsors.[0].member.party")
           partyColour: govData(path: "sponsors.[0].member.partyColour")
           arguments_aggregate {
@@ -45,7 +46,7 @@ export async function getStaticProps() {
   return {
     props: {
       bills: bills.filter((bill: any) => {
-        return !bill.isAct;
+        return !bill.isAct && !bill.isDefeated;
       }),
     },
     revalidate: 60,

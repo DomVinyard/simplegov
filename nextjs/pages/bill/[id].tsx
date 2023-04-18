@@ -97,7 +97,7 @@ export default function Topic(props: any) {
         </div>
       </Inner>
       {member ? <InfoPanel member={member} /> : null}
-      {arguments_aggregate?.aggregate?.count && (
+      {arguments_aggregate?.aggregate?.count > 0 && (
         <div className={styles.argumentsWrapper}>
           <Inner>
             <h2 className={styles.h2}>
