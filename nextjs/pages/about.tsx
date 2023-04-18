@@ -12,7 +12,7 @@ export default function About() {
           machine learning model interfacing with the official government API.
           We released this because we think laws and policy should be more
           transparent and open to everybody. We do not make any money from this
-          website.
+          project.
         </p>
         {/* <p className={styles.p}>
           We can help consult on your next AI project,{" "}

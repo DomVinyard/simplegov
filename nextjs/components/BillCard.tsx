@@ -40,6 +40,7 @@ export default function BillCard({ bill }: any) {
               {Array.from(Array(12)).map((x, i) => {
                 return (
                   <div
+                    key={i}
                     style={{
                       height: 8,
                       width: 14,
