@@ -6,7 +6,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
-const FETCH_COUNT = 70;
+const FETCH_COUNT = 75;
 
 export default async function handler(
   req: NextApiRequest,

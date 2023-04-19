@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 // Run every 10 minutes
 
-const makeAttempt = async (res) => {
+const makeAttempt = async (res: NextApiResponse) => {
   // pick a random item and regenerate it
   // fetch govdata (also if lastUpdated changed do that anyway)
   // regenerate summary
