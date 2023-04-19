@@ -2,6 +2,39 @@ import { stages, indexes } from "@/lib/stages";
 import Link from "next/link";
 import styles from "./BillCard.module.css";
 
+const Progress = ({ index }: any) => {
+  return (
+    <div className={styles.progressWrapper}>
+      {Array.from(Array(12)).map((x, i) => {
+        return (
+          <div
+            key={i}
+            style={{
+              height: 8,
+              width: 12,
+              marginRight: 2,
+              background: i <= index ? "#1d70b8" : "#BBB",
+            }}
+          ></div>
+        );
+      })}
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: "bold",
+          color: "#1d70b8",
+          marginLeft: 3,
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <img src="/hourglass.png" width={11} style={{ marginRight: 2 }} />
+        {Math.floor(((index + 1) / 12) * 100)}%
+      </div>
+    </div>
+  );
+};
+
 export default function BillCard({ bill }: any) {
   const stage = stages.find((s) => s?.id === bill.stage) as any;
   const index = indexes.indexOf(stage?.id);
@@ -28,48 +61,7 @@ export default function BillCard({ bill }: any) {
               {bill.description?.simplifiedShort || "Awaiting description"}
             </p>
             {/* <p className={styles.p}>stage {JSON.stringify({ stage, index })}</p> */}
-            {index > 0 && (
-              <div
-                style={{
-                  display: "flex",
-                  // justifyContent: "space-between",
-                  width: "100%",
-                  marginTop: 12,
-                  alignItems: "center",
-                }}
-              >
-                {Array.from(Array(12)).map((x, i) => {
-                  return (
-                    <div
-                      key={i}
-                      style={{
-                        height: 8,
-                        width: 12,
-                        marginRight: 2,
-                        background: i <= index ? "#1d70b8" : "#BBB",
-                      }}
-                    ></div>
-                  );
-                })}
-                <div
-                  style={{
-                    fontSize: 13,
-                    fontWeight: "bold",
-                    color: "#1d70b8",
-                    marginLeft: 3,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    src="/hourglass.png"
-                    width={11}
-                    style={{ marginRight: 2 }}
-                  />
-                  {Math.floor(((index + 1) / 12) * 100)}%
-                </div>
-              </div>
-            )}
+            {index > 0 && <Progress index={index} />}
           </div>
           <div className={styles.commentWrapper}>
             <img

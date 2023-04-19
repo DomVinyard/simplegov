@@ -31,24 +31,35 @@
 
 .commentWrapper {
   margin: 0 16px;
-  min-width: 44px;
+  min-width: 36px;
+}
+
+.progressWrapper {
+  display: flex;
+  width: 100%;
+  margin-top: 12px;
+  align-items: center;
 }
 
 /* mobile */
 
 @media (max-width: 600px) {
   .h3 {
-    font-size: 15px;
+    font-size: 12px;
   }
   .billInner {
-    padding: 12px 12px;
+    padding: 8px 8px;
   }
   .billWrapper {
     margin: 0;
-    border-top: 1px solid #444;
+    border-top: 2px solid #333;
     background-color: #fff;
   }
   .commentWrapper {
-    margin: 0 8px;
+    margin: 0 6px;
+  }
+
+  .progressWrapper {
+    margin-top: 8px;
   }
 }
