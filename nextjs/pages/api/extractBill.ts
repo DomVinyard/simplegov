@@ -28,9 +28,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+  const { id, shortTitle } = body.event.data.new;
   try {
-    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-    const { id, shortTitle } = body.event.data.new;
     const billEndpoint = `https://bills-api.parliament.uk/api/v1/Bills/${id}`;
     const publicationEndpoint = `https://bills-api.parliament.uk/api/v1/Bills/${id}/Publications`;
     const billRes = await fetch(billEndpoint, {
@@ -45,8 +45,6 @@ export default async function handler(
       (pub: any) => pub.publicationType.name === "Bill"
     )?.[0]?.links?.[0]?.url;
     if (!publication_url) {
-      await setNoText(id);
-      await res.revalidate(`/`);
       throw new Error("No publication found");
     }
     const pdf = await request(
@@ -56,8 +54,6 @@ export default async function handler(
     const parsed = await pdfParse(pdf);
     const rawText = parsed?.text;
     if (!rawText) {
-      await setNoText(id);
-      await res.revalidate(`/`);
       throw new Error("No text extracted from publication");
     }
     await client.mutate({
@@ -93,6 +89,7 @@ export default async function handler(
     res.send(200);
   } catch (err) {
     console.error(err);
+    await setNoText(id);
     await res.revalidate(`/`);
     return res.status(500).send(err);
   }
