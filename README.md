@@ -1,4 +1,4 @@
-# ExplainAI
+# SimpleGov
 
 This is a monorepo composed of two packages.
 
